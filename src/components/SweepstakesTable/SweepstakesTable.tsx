@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import styles from "./SweepstakesTable.module.scss";
 import { ISweepstake } from "@/interfaces";
 import { currencyFormatter, dateTimeFromStampFormatter } from "@/helpers";
 import { Routes } from "@/routes";
+import { Chip } from "../Chip/Chip";
+import { MainButton } from "../MainButton/MainButton";
 
 const paginationPages: (number | string)[] = [
   `${process.env.NEXT_PUBLIC_PER_PAGE_INITIAL}`,
@@ -114,8 +117,16 @@ export const SweepstakesTable = ({
 
   // table rows
   const rows = filteredTableRows.map((row) => {
-    const { title, focus, raised, entries, statuses, start_date, end_date } =
-      row;
+    const {
+      title,
+      focus,
+      raised,
+      entries,
+      status,
+      statuses,
+      start_date,
+      end_date,
+    } = row;
 
     return (
       <tr key={row.id}>
@@ -131,10 +142,49 @@ export const SweepstakesTable = ({
         <td>{entries}</td>
         <td>
           {statuses.map((status) => (
-            <span key={status}>{status}</span>
+            <Chip key={status} status={status}>
+              {status}
+            </Chip>
           ))}
         </td>
-        <td>Actions</td>
+        <td>
+          {status === "active" && (
+            <MainButton type="button" onClick={() => {}} data-promote>
+              Promote{" "}
+              <Image
+                src="/icons/promote.svg"
+                width={11.72}
+                height={6.66}
+                alt="icon"
+                style={{ marginLeft: "1rem" }}
+              />
+            </MainButton>
+          )}
+          {status === "inactive" && (
+            <>
+              <MainButton type="button" onClick={() => {}} data-accept>
+                Accept{" "}
+                <Image
+                  src="/icons/accept.svg"
+                  width={11.17}
+                  height={8.38}
+                  alt="icon"
+                  style={{ marginLeft: "1rem" }}
+                />
+              </MainButton>
+              <MainButton type="button" onClick={() => {}} data-decline>
+                Decline{" "}
+                <Image
+                  src="/icons/decline.svg"
+                  width={8.79}
+                  height={8.79}
+                  alt="icon"
+                  style={{ marginLeft: "1rem" }}
+                />
+              </MainButton>
+            </>
+          )}
+        </td>
         <td>{dateTimeFromStampFormatter(+start_date)}</td>
         <td>{dateTimeFromStampFormatter(+end_date)}</td>
       </tr>

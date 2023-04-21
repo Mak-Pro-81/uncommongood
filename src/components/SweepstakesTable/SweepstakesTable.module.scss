@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .table__actions {
   display: flex;
   align-items: center;
@@ -64,6 +66,7 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 1rem;
+  white-space: nowrap;
 
   th {
     padding: 1.5rem 1rem;
@@ -108,6 +111,30 @@
       background-color: #f2eef9;
       cursor: pointer;
       margin: 0 1rem;
+    }
+  }
+
+  span {
+    margin: 0 0.5rem;
+  }
+
+  button {
+    min-width: 10rem;
+    margin: 0 0.5rem;
+
+    &[data-promote] {
+      background-color: $primary-blue;
+      color: #fff;
+    }
+
+    &[data-accept] {
+      background-color: $primary-green;
+      color: #fff;
+    }
+
+    &[data-decline] {
+      background-color: $primary-red;
+      color: #fff;
     }
   }
 }

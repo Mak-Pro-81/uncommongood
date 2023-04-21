@@ -1,0 +1,83 @@
+.chip {
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  height: 2.3rem;
+  line-height: 2.1rem;
+  min-width: 4rem;
+  padding: 0 1rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4rem;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+
+  &.active {
+    color: #71b078;
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.9)
+      ),
+      #71b078;
+  }
+
+  &.inactive {
+    color: #d3584b;
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.9)
+      ),
+      #d3584b;
+  }
+
+  &.winner_notified {
+    color: #6db5d1;
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.9)
+      ),
+      #6db5d1;
+  }
+
+  &.scheduled {
+    color: #edbc33;
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.9)
+      ),
+      #edbc33;
+  }
+
+  &.completed {
+    color: #315b9c;
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.9)
+      ),
+      #315b9c;
+  }
+
+  &.draft {
+    color: #9a83b7;
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.9)
+      ),
+      #9a83b7;
+  }
+
+  &.default {
+    color: rgba(48, 56, 82, 0.7);
+    background-color: rgba(48, 56, 82, 0.05);
+  }
+}

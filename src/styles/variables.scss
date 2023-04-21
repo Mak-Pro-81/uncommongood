@@ -1,0 +1,13 @@
+$primary-blue: #6db5d1;
+$primary-green: #71b078;
+$primary-red: #d3584b;
+$primary-yellow: #edbc33;
+$primary-gray: #a098ab;
+
+:export {
+  primaryBlue: $primary-blue;
+  primaryGreen: $primary-green;
+  primaryRed: $primary-red;
+  primaryYellow: $primary-yellow;
+  primaryGray: $primary-gray;
+}

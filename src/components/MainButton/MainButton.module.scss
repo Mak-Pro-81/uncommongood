@@ -1,0 +1,26 @@
+@import "../../styles/variables.scss";
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  height: 3.2rem;
+  border-radius: 3.5rem;
+  padding: 0 1.5rem;
+
+  &.default {
+    height: 3.2rem;
+  }
+
+  &.small {
+    height: 2.3rem;
+  }
+
+  &.large {
+    height: 5rem;
+  }
+}
