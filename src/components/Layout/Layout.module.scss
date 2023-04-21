@@ -1,0 +1,35 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+
+  &__sidebar {
+    width: 23.3rem;
+    padding: 2rem;
+    border-right: 1px solid rgba(79, 79, 79, 0.3);
+    height: 100%;
+    overflow-y: auto;
+
+    ul {
+      li {
+        margin-bottom: 2rem;
+
+        a {
+          text-decoration: none;
+          color: #9689a6;
+
+          &.active {
+            color: #303852;
+          }
+        }
+      }
+    }
+  }
+
+  &__content {
+    width: calc(100% - 23.3rem);
+    height: 100%;
+    padding: 2rem;
+    overflow-y: auto;
+  }
+}
