@@ -3,6 +3,8 @@ $primary-green: #71b078;
 $primary-red: #d3584b;
 $primary-yellow: #edbc33;
 $primary-gray: #a098ab;
+$primary-violet-light: #f2eef9;
+$primary-violet-dark: #63517a;
 
 :export {
   primaryBlue: $primary-blue;
@@ -10,4 +12,6 @@ $primary-gray: #a098ab;
   primaryRed: $primary-red;
   primaryYellow: $primary-yellow;
   primaryGray: $primary-gray;
+  primaryVioletLight: $primary-violet-light;
+  primaryVioletDark: $primary-violet-dark;
 }

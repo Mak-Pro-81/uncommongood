@@ -1,9 +1,17 @@
+import { createPortal } from "react-dom";
 import { MainButton } from "@/components";
 import Image from "next/image";
+import { Modal } from "@/components";
+
+import { useAppSelector, useAppDispatch } from "@/hooks";
+import { toggleModal } from "@/store/slices/modalSlice";
 
 export default function Home() {
+  const { showModal } = useAppSelector((state) => state.modal);
+  const dispatch = useAppDispatch();
+
   const buttonClick = () => {
-    console.log("click");
+    dispatch(toggleModal(true));
   };
 
   return (
@@ -19,6 +27,8 @@ export default function Home() {
           style={{ marginLeft: "1rem" }}
         />
       </MainButton>
+
+      {showModal && createPortal(<Modal>Modal Content</Modal>, document.body)}
     </>
   );
 }

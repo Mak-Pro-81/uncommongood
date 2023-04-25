@@ -11,6 +11,7 @@
   height: 3.2rem;
   border-radius: 3.5rem;
   padding: 0 1.5rem;
+  transition: all 0.3s ease 0s;
 
   &.default {
     height: 3.2rem;
@@ -20,7 +21,50 @@
     height: 2.3rem;
   }
 
+  &.middle {
+    font-size: 1.4rem;
+    height: 4.2rem;
+  }
+
   &.large {
+    font-size: 1.4rem;
     height: 5rem;
+  }
+
+  &.gray {
+    background-color: $primary-violet-light;
+    color: $primary-violet-dark !important;
+  }
+
+  &.yellow {
+    background-color: $primary-yellow;
+    box-shadow: 0px 6px 10px rgba(237, 188, 51, 0.3);
+  }
+
+  &.green {
+    background-color: $primary-green;
+    box-shadow: 0px 6px 10px rgba(113, 176, 120, 0.3);
+    color: #fff;
+  }
+
+  &.blue {
+    background-color: $primary-blue;
+    color: #fff;
+  }
+
+  &.red {
+    background-color: $primary-red;
+    color: #fff;
+  }
+
+  &.transparent {
+    background-color: transparent;
+    border: 1px solid $primary-violet-dark;
+    color: $primary-violet-dark !important;
+
+    &:hover {
+      background-color: $primary-violet-dark;
+      color: #fff !important;
+    }
   }
 }

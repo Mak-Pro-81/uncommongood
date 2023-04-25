@@ -1,11 +1,17 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import styles from "./SweepstakesTable.module.scss";
 import { ISweepstake } from "@/interfaces";
 import { currencyFormatter, dateTimeFromStampFormatter } from "@/helpers";
 import { Routes } from "@/routes";
-import { Chip } from "../Chip/Chip";
-import { MainButton } from "../MainButton/MainButton";
+import { Chip, MainButton, Modal } from "@/components";
+import { SweepstakesModalContent } from "./SweepstakesModalContent";
+import { SweepstakesModalContentType } from "@/types";
+
+import { useAppSelector, useAppDispatch } from "@/hooks";
+import { toggleModal } from "@/store/slices/modalSlice";
+import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 
 const paginationPages: (number | string)[] = [
   `${process.env.NEXT_PUBLIC_PER_PAGE_INITIAL}`,
@@ -29,6 +35,9 @@ export const SweepstakesTable = ({
   allItems,
   counts,
 }: ISweepstakesTable): JSX.Element => {
+  const { showModal } = useAppSelector((state) => state.modal);
+  const dispatch = useAppDispatch();
+
   const [{ total, completed }] = counts;
   const [filteredTableRows, setFilteredTableRows] =
     useState<ISweepstake[]>(allItems);
@@ -38,6 +47,9 @@ export const SweepstakesTable = ({
   );
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const [modalContent, setModalContent] = useState<ReactJSXElement>(<></>);
+  const [rowId, setRowId] = useState<string>("");
 
   // handle filters
   const handleFilter = (value: string) => {
@@ -83,7 +95,27 @@ export const SweepstakesTable = ({
     });
   };
 
-  useEffect(() => {
+  const statusHandler = (id: string) => {
+    setRowId(id);
+  };
+
+  const modalHandler = (
+    type: SweepstakesModalContentType,
+    link?: string,
+    id?: string
+  ) => {
+    setModalContent(
+      <SweepstakesModalContent
+        id={id}
+        type={type}
+        link={link}
+        statusClick={(id) => statusHandler(id)}
+      />
+    );
+    dispatch(toggleModal(true));
+  };
+
+  function update() {
     const limit =
       rowsPerPage !== "undefined"
         ? rowsPerPage
@@ -109,6 +141,29 @@ export const SweepstakesTable = ({
           ? setFilteredTableRows(data)
           : setFilteredTableRows(filteredItems);
       });
+  }
+
+  useEffect(() => {
+    if (rowId) {
+      const newRowData = {
+        ...filteredTableRows[+rowId],
+        status: "completed",
+        statuses: ["completed"],
+      };
+
+      fetch(`${Routes.ROOT}${Routes.SWEEPSTAKES}/${rowId}`, {
+        method: "PUT",
+        body: JSON.stringify(newRowData),
+        headers: { "content-type": "application/json" },
+      }).then(() => {
+        dispatch(toggleModal(false));
+        update();
+      });
+    }
+  }, [rowId]);
+
+  useEffect(() => {
+    update();
   }, [rowsPerPage, currentPage, activeFilter]);
 
   if (!filteredTableRows) {
@@ -118,18 +173,20 @@ export const SweepstakesTable = ({
   // table rows
   const rows = filteredTableRows.map((row) => {
     const {
+      id,
       title,
       focus,
       raised,
       entries,
       status,
       statuses,
+      link,
       start_date,
       end_date,
     } = row;
 
     return (
-      <tr key={row.id}>
+      <tr key={id}>
         <td>{title}</td>
         <td>{focus}</td>
         <td>
@@ -149,7 +206,11 @@ export const SweepstakesTable = ({
         </td>
         <td>
           {status === "active" && (
-            <MainButton type="button" onClick={() => {}} data-promote>
+            <MainButton
+              type="button"
+              onClick={() => modalHandler("publish", link)}
+              data-promote
+            >
               Promote{" "}
               <Image
                 src="/icons/promote.svg"
@@ -162,7 +223,11 @@ export const SweepstakesTable = ({
           )}
           {status === "inactive" && (
             <>
-              <MainButton type="button" onClick={() => {}} data-accept>
+              <MainButton
+                type="button"
+                onClick={() => modalHandler("accept", link, id)}
+                data-accept
+              >
                 Accept{" "}
                 <Image
                   src="/icons/accept.svg"
@@ -249,6 +314,8 @@ export const SweepstakesTable = ({
           <tbody>{rows}</tbody>
         </table>
       </div>
+
+      {showModal && createPortal(<Modal>{modalContent}</Modal>, document.body)}
     </>
   );
 };

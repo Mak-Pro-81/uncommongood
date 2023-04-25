@@ -1,0 +1,51 @@
+@import "../../styles/variables.scss";
+
+.main__nav {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  height: 100%;
+  z-index: 10;
+
+  &_primary {
+    padding: 4rem 3.8rem;
+  }
+
+  &_secondary {
+    background-color: $primary-violet-light;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 17.3rem;
+    padding-top: 14rem;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin-bottom: 1rem;
+        a {
+          display: flex;
+          align-items: center;
+
+          font-size: 1rem;
+          font-weight: 700;
+          color: #253b86;
+          height: 3.9rem;
+          white-space: nowrap;
+          padding: 0 3rem;
+
+          &.active {
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  &_logo {
+    margin-bottom: 5rem;
+  }
+}

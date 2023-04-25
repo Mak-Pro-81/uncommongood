@@ -1,0 +1,30 @@
+@import "../../styles/variables.scss";
+
+.menu__item {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #9689a6;
+
+  &_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: $primary-violet-light;
+    margin-right: 1rem;
+  }
+}
+
+.active {
+  .menu__item_icon {
+    background-color: $primary-violet-dark;
+
+    img {
+      filter: invert(1) contrast(10);
+    }
+  }
+}

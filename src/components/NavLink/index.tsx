@@ -19,8 +19,6 @@ export const NavLink = ({
     props.className = "";
   }
 
-  console.log(props.className);
-
   const { pathname } = useRouter();
 
   const isActive = exact ? pathname === href : pathname.startsWith(href);

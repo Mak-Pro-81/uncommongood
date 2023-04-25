@@ -1,7 +1,7 @@
 type StringNumber = string | number;
 
 export interface ISweepstake {
-  id?: StringNumber;
+  id?: string;
   title: string;
   focus: string;
   raised: number;
