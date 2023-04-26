@@ -1,0 +1,31 @@
+@import "../../../styles/variables.scss";
+
+.palette__create {
+  position: relative;
+
+  h6 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    background-color: #fff;
+    color: $primary-violet-dark;
+    margin: 0 2.5rem 1.3rem;
+  }
+
+  input {
+    width: 100%;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: $primary-violet-dark;
+    border: 1px solid #efefef;
+    border-radius: 3rem;
+    height: 6.4rem;
+    line-height: 1.3;
+    padding: 0 2.4rem;
+
+    &:focus {
+      &::placeholder {
+        opacity: 0;
+      }
+    }
+  }
+}

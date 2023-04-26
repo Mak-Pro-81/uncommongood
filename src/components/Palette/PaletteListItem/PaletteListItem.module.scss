@@ -1,0 +1,46 @@
+@import "../../../styles/variables.scss";
+
+.palette__item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: $primary-violet-dark;
+  cursor: pointer;
+
+  &_point {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    border: 2px solid $primary-violet-dark;
+    margin-right: 1rem;
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background-color: $primary-blue;
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  &.active {
+    .palette__item_point {
+      width: 1.8rem;
+      height: 1.8rem;
+      border-color: $primary-blue;
+
+      &::after {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}

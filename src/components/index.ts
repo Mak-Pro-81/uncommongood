@@ -1,4 +1,7 @@
 export { ActionBox } from "./ActionBox/ActionBox";
+export { PaletteUploader } from "./Palette/PaletteUploader/PaletteUploader";
+export { PaletteCreate } from "./Palette/PaletteCreate/PaletteCreate";
+export { PaletteListItem } from "./Palette/PaletteListItem/PaletteListItem";
 export { Dropzone } from "./Dropzone/Dropzone";
 export { MainNav } from "./MainNav/MainNav";
 export { Modal } from "./Modal/Modal";
