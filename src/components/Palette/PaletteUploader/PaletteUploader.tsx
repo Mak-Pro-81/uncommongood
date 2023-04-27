@@ -18,8 +18,6 @@ export const PaletteUploader = ({
   const [displayPicker, setDisplayPicker] = useState<boolean>(false);
   const [color, setColor] = useState<any>("");
 
-  console.log(initialcolor);
-
   const initialRGB = hexRgb("#0001");
 
   const showPalette = () => {

@@ -16,3 +16,12 @@ body {
   font-weight: 700;
   color: #000;
 }
+
+.constructor__area {
+  display: flex;
+  gap: 3rem;
+
+  & > div {
+    flex: 1;
+  }
+}

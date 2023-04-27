@@ -12,12 +12,22 @@
   }
 
   &_secondary {
+    position: relative;
     background-color: $primary-violet-light;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 17.3rem;
     padding-top: 14rem;
+
+    &_close {
+      font-family: inherit;
+      font-size: 1.6rem;
+      font-weight: 700;
+      position: absolute;
+      left: 2rem;
+      top: 3rem;
+    }
 
     ul {
       list-style: none;

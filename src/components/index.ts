@@ -1,3 +1,7 @@
+export { InputHandler } from "./InputHandler/InputHandler";
+export { TextExample } from "./TextExample/TextExample";
+export { ColorExample } from "./ColorExample/ColorExample";
+export { Tooltip } from "./Tooltip/Tooltip";
 export { ActionBox } from "./ActionBox/ActionBox";
 export { PaletteUploader } from "./Palette/PaletteUploader/PaletteUploader";
 export { PaletteCreate } from "./Palette/PaletteCreate/PaletteCreate";

@@ -19,11 +19,16 @@ export interface Palette {
 interface State {
   oldPaletteName: string;
   palettes: Palette[];
+  selectedPalette: Palette;
 }
 
 const initialState: State = {
   oldPaletteName: "",
   palettes: [],
+  selectedPalette: {
+    paletteName: "",
+    paletteColors: [],
+  },
 };
 
 const paletteSlice = createSlice({
@@ -44,8 +49,18 @@ const paletteSlice = createSlice({
         state.oldPaletteName = "";
       }
     },
+    setSelectedPalette(state, action) {
+      console.log(action.payload);
+      if (action.payload) {
+        const selectedPaletteIndex = state.palettes.findIndex(
+          (obj) => obj.paletteName === action.payload
+        );
+        state.selectedPalette = state.palettes[selectedPaletteIndex];
+      }
+    },
   },
 });
 
-export const { setPalettes, setOldPaletteName } = paletteSlice.actions;
+export const { setPalettes, setOldPaletteName, setSelectedPalette } =
+  paletteSlice.actions;
 export default paletteSlice.reducer;

@@ -31,6 +31,15 @@
     }
   }
 
+  &_expand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 1rem;
+  }
+
   &.active {
     .palette__item_point {
       width: 1.8rem;

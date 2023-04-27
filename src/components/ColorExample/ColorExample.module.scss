@@ -1,0 +1,78 @@
+.color__example {
+  position: relative;
+  max-width: 44.5rem;
+
+  h4 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  &_elements {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  &_banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2rem;
+    padding-top: 37%;
+
+    &_title {
+      color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 3rem;
+      border-radius: 2rem 2rem 0 0;
+      overflow: hidden;
+      padding: 1.5rem;
+
+      span {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: 0.8;
+      }
+
+      h4 {
+        position: relative;
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        max-width: 28.6rem;
+        margin-bottom: 0;
+        z-index: 1;
+      }
+    }
+  }
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 4.2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  padding: 0 1.5rem;
+  min-width: 9.2rem;
+  border-radius: 3rem;
+  background-color: #000;
+  margin-right: 4rem;
+}
+
+.icons__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+}

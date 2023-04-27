@@ -1,15 +1,20 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/hooks";
-import { setPalettes, setOldPaletteName } from "@/store/slices/palettesSlice";
+import {
+  setPalettes,
+  setOldPaletteName,
+  setSelectedPalette,
+} from "@/store/slices/palettesSlice";
 import Link from "next/link";
-import { Tooltip } from "@/components/Tooltip/Tooltip";
 import {
   ActionBox,
   PaletteCreate,
   PaletteUploader,
   PaletteListItem,
   MainButton,
+  ColorExample,
+  Tooltip,
 } from "@/components";
 import {
   ColorTypes,
@@ -25,9 +30,8 @@ const OrganizationColorsPage = (): JSX.Element => {
   const [paletteName, setPaletteName] = useState<string>("");
   const [paletteColors, setPaletteColors] = useState<PaletteColor[]>([]);
   const [completed, setCompleted] = useState<boolean>(false);
-  const [selectedPaletteItem, setSelectedPaletteItem] = useState<string>(
-    palettes[0]?.paletteName || ""
-  );
+  const [selectedPaletteItem, setSelectedPaletteItem] = useState<string>("");
+  const [updatedPaletteItem, setUpdatedPaletteItem] = useState<string>("");
 
   const paletteColorsHandler = (type: ColorTypes, color: { hex: string }) => {
     const paletteColor = {
@@ -59,20 +63,26 @@ const OrganizationColorsPage = (): JSX.Element => {
     };
 
     dispatch(setPalettes(palette));
+    dispatch(setSelectedPalette(selectedPaletteItem));
     setShowCreate(false);
     setCompleted(false);
-    setSelectedPaletteItem("");
+    setUpdatedPaletteItem("");
   };
 
-  const paletteItemClickHandler = (value: string) => {
+  const paletteItemExpandHandler = (value: string) => {
     dispatch(setOldPaletteName(value));
     setCompleted(true);
-    setSelectedPaletteItem(value);
+    setUpdatedPaletteItem(value);
     setShowCreate(true);
 
     const objIndex = palettes.findIndex((obj) => obj.paletteName === value);
     setPaletteColors(palettes[objIndex].paletteColors);
     setPaletteName(palettes[objIndex].paletteName);
+  };
+
+  const paletteItemActiveHandler = (value: string) => {
+    setSelectedPaletteItem(value);
+    dispatch(setSelectedPalette(value));
   };
 
   useEffect(() => {
@@ -90,7 +100,8 @@ const OrganizationColorsPage = (): JSX.Element => {
     <li key={palette.paletteName} style={{ marginBottom: "3rem" }}>
       <PaletteListItem
         title={palette.paletteName}
-        onClick={(value) => paletteItemClickHandler(value)}
+        onClickExpand={(value) => paletteItemExpandHandler(value)}
+        onClickActive={(value) => paletteItemActiveHandler(value)}
         active={palette.paletteName === selectedPaletteItem}
       />
     </li>
@@ -98,7 +109,7 @@ const OrganizationColorsPage = (): JSX.Element => {
 
   const colorTypes = Object.values(ColorTypes).map((type, index) => {
     const selectedIndex = palettes.findIndex(
-      (obj) => obj.paletteName === selectedPaletteItem
+      (obj) => obj.paletteName === updatedPaletteItem
     );
 
     return (
@@ -208,7 +219,9 @@ const OrganizationColorsPage = (): JSX.Element => {
             </>
           )}
         </div>
-        <div></div>
+        <div>
+          <ColorExample />
+        </div>
       </div>
     </>
   );

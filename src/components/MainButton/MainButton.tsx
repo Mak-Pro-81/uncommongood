@@ -1,6 +1,7 @@
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
-import { ReactNode, DetailedHTMLProps } from "react";
+import { ReactNode } from "react";
+import { useAppSelector } from "@/hooks";
 import styles from "./MainButton.module.scss";
 type TMainButtonType = "link" | "button";
 type TMainButtonSize = "large" | "middle" | "small";
@@ -19,6 +20,7 @@ interface IMainButton {
   onClick: () => void;
   size?: TMainButtonSize;
   color?: TMainButtonColor;
+  primaryBtn?: boolean;
   disabled?: boolean;
 }
 
@@ -30,10 +32,17 @@ export const MainButton = ({
   size,
   color,
   disabled,
+  primaryBtn,
   ...props
 }: IMainButton): JSX.Element => {
   let buttonSize = null,
     buttonColor = null;
+
+  const {
+    selectedPalette: {
+      paletteColors: [primary, secondary, accent],
+    },
+  } = useAppSelector((state) => state.palettes);
 
   switch (size) {
     case "large":
@@ -76,6 +85,7 @@ export const MainButton = ({
       legacyBehavior
       className={`${styles.button} ${buttonSize} ${buttonColor}`}
       {...props}
+      style={{ backgroundColor: primaryBtn ? accent?.colorValue : undefined }}
     >
       {children}
     </Link>
@@ -85,6 +95,7 @@ export const MainButton = ({
       onClick={onClick}
       className={`${styles.button} ${buttonSize} ${buttonColor}`}
       disabled={disabled}
+      style={{ backgroundColor: primaryBtn ? accent?.colorValue : undefined }}
       {...props}
     >
       {children}

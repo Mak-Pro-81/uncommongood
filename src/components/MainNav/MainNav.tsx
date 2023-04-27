@@ -2,11 +2,25 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./MainNav.module.scss";
 import { MainMenuItem } from "../MainMenuItem/MainMenuItem";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "@/hooks";
+import { toggleExpandNavigation } from "@/store/slices/mainNavigationSlice";
+
+import HomeIcon from "/public/icons/home.svg";
+import SweepstakesIcon from "public/icons/sweepstakes.svg";
+import SettingsIcon from "public/icons/settings.svg";
 
 export const MainNav = (): JSX.Element => {
-  const { pathname } = useRouter();
+  const dispatch = useAppDispatch();
+
+  const {
+    selectedPalette: {
+      paletteColors: [primary, secondary, accent],
+    },
+  } = useAppSelector((state) => state.palettes);
+
+  const { expandNav } = useAppSelector((state) => state.mainnavigation);
+
   const [secondaryMenuItems, setSecondaryMenuItems] = useState<string[]>([
     "Branding",
     "Logos",
@@ -31,43 +45,59 @@ export const MainNav = (): JSX.Element => {
           <li>
             <MainMenuItem
               href="/"
-              icon="/icons/home.svg"
-              iconWidth={20}
-              iconHeight={19.39}
+              icon={<HomeIcon fill={primary?.colorValue} />}
               text="Home"
+              color={primary?.colorValue}
             />
           </li>
           <li>
             <MainMenuItem
               href="/sweepstakes"
-              icon="/icons/sweepstakes.svg"
-              iconWidth={20}
-              iconHeight={17.58}
+              icon={<SweepstakesIcon fill={primary?.colorValue} />}
               text="Sweepstakes"
+              color={primary?.colorValue}
             />
           </li>
           <li>
             <MainMenuItem
               href="/settings"
-              icon="/icons/settings.svg"
-              iconWidth={20}
-              iconHeight={19.99}
+              icon={<SettingsIcon fill={primary?.colorValue} />}
               text="Settings"
+              color={primary?.colorValue}
+              expand
             />
           </li>
         </ul>
       </div>
-      <div className={styles.main__nav_secondary}>
-        <div>
-          <ul>
-            {secondaryMenuItems.map((item) => (
-              <li key={item}>
-                <Link href={`/settings/${item.toLowerCase()}`}>{item}</Link>
-              </li>
-            ))}
-          </ul>
+
+      {expandNav && (
+        <div
+          className={styles.main__nav_secondary}
+          style={{ backgroundColor: secondary?.colorValue }}
+        >
+          <button
+            className={styles.main__nav_secondary_close}
+            onClick={() => dispatch(toggleExpandNavigation(false))}
+          >
+            Close
+          </button>
+
+          <div>
+            <ul>
+              {secondaryMenuItems.map((item) => (
+                <li key={item}>
+                  <Link
+                    href={`/settings/${item.toLowerCase()}`}
+                    style={{ color: primary?.colorValue }}
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };

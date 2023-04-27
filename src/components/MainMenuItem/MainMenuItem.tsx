@@ -1,39 +1,39 @@
 import { NavLink } from "../NavLink";
-import Image from "next/image";
 import styles from "./MainMenuItem.module.scss";
 import { setActiveLink } from "@/helpers";
 import { useRouter } from "next/router";
+import { ReactNode } from "react";
 
 interface MainMenuItemProps {
   href: string;
-  icon: string;
-  iconWidth: number;
-  iconHeight: number;
+  icon?: ReactNode;
   text: string;
+  color?: string;
+  expand?: boolean;
 }
 
 export const MainMenuItem = ({
   href,
   icon,
-  iconWidth,
-  iconHeight,
   text,
+  color,
+  expand,
 }: MainMenuItemProps): JSX.Element => {
   const { pathname } = useRouter();
+
   return (
     <NavLink
       href={href}
       exact
+      expand={expand}
       className={`${styles.menu__item} ${setActiveLink(
         pathname,
         href,
         styles.active
       )}`}
     >
-      <span className={styles.menu__item_icon}>
-        <Image src={icon} width={iconWidth} height={iconHeight} alt="icon" />
-      </span>
-      <span>{text}</span>
+      <span className={styles.menu__item_icon}>{icon}</span>
+      <span style={{ color: color }}>{text}</span>
     </NavLink>
   );
 };

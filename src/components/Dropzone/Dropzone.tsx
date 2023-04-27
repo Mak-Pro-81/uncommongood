@@ -202,6 +202,7 @@ export const Dropzone = (): JSX.Element => {
               size="middle"
               color="yellow"
               onClick={confirmHandler}
+              primaryBtn
               disabled={empty}
             >
               Confirm
